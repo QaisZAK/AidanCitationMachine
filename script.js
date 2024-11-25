@@ -69,9 +69,22 @@ function addToHistory(reference) {
     const historyList = document.getElementById('historyList');
     const listItem = document.createElement('li');
     listItem.innerText = reference;
-    historyList.appendChild(listItem);
-}
 
+    // Get all current list items
+    const items = Array.from(historyList.getElementsByTagName('li'));
+
+    // Add the new item to the array
+    items.push(listItem);
+
+    // Sort the items alphabetically
+    items.sort((a, b) => a.innerText.localeCompare(b.innerText));
+
+    // Clear the existing list
+    historyList.innerHTML = '';
+
+    // Append the sorted items back to the list
+    items.forEach(item => historyList.appendChild(item));
+}
 function copyToClipboard(text, button) {
     navigator.clipboard.writeText(text).then(() => {
         if (button) {
